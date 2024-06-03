@@ -24,7 +24,7 @@ class WeatherListViewModel @Inject constructor(
     private val _showErrorInternetConnection: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     init {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             getWeatherFiveDaysByCityUseCase.execute(
                 onSuccess = { listWeather ->
                     _weatherList.value = listWeather
@@ -52,6 +52,16 @@ class WeatherListViewModel @Inject constructor(
         SharingStarted.Eagerly,
         WeatherScreenState.Initial
     )
+
+    override fun doAction(action: Action) {
+        when (action) {
+            is WeatherScreenAction.ShowDetailedInformation -> showDetailedWeatherInfo()
+        }
+    }
+
+    private fun showDetailedWeatherInfo() {
+
+    }
 }
 
 sealed interface WeatherScreenState : State {

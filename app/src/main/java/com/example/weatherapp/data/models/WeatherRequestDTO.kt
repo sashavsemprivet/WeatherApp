@@ -1,4 +1,5 @@
 package com.example.weatherapp.data.models
 
-class WeatherRequestDTO {
-}
+class WeatherRequestDTO(
+    val city: String
+)

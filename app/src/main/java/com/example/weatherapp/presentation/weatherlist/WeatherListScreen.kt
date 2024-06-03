@@ -2,15 +2,18 @@ package com.example.weatherapp.presentation.weatherlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,18 +21,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.weatherapp.domain.WeatherInfo
+import com.example.weatherapp.ui.theme.Pink80
 import com.example.weatherapp.ui.theme.PurpleGrey40
 import com.example.weatherapp.ui.theme.PurpleGrey80
 
 @Composable
-fun WeatherListScreen(viewModel: WeatherListViewModel = hiltViewModel()) {
+fun WeatherListScreen() {
+
+    val viewModel: WeatherListViewModel = hiltViewModel()
 
     val state by viewModel.state.collectAsState()
+
+    if (state is WeatherScreenState.Initial) {
+        Loader()
+    }
 
     if (state is WeatherScreenState.Data) {
         WeatherListScreen(
@@ -88,35 +96,17 @@ private fun DailyWeather(date: String, temp: Double) {
     }
 }
 
-@Preview
 @Composable
-fun DailyWeatherPreview() {
+private fun Loader() {
 
-    val data = WeatherScreenState.Data(
-        list = listOf(
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7),
-            WeatherInfo(date = "22.02.2024", temp = 22.7)
-        ),
-        showErrorInternetConnection = false
-    )
-
-    WeatherListScreen(data)
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.width(64.dp),
+            color = PurpleGrey40,
+            trackColor = Pink80,
+        )
+    }
 }
