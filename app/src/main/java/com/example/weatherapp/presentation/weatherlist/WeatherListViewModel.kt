@@ -1,14 +1,12 @@
 package com.example.weatherapp.presentation.weatherlist
 
 import androidx.lifecycle.viewModelScope
-import com.example.weatherapp.data.WeatherRepositoryImpl
 import com.example.weatherapp.domain.GetWeatherFiveDaysByCityUseCase
 import com.example.weatherapp.domain.WeatherInfo
 import com.example.weatherapp.presentation.base.Action
 import com.example.weatherapp.presentation.base.BaseViewModel
 import com.example.weatherapp.presentation.base.State
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,7 +24,7 @@ class WeatherListViewModel @Inject constructor(
     private val _showErrorInternetConnection: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             getWeatherFiveDaysByCityUseCase.execute(
                 onSuccess = { listWeather ->
                     _weatherList.value = listWeather
