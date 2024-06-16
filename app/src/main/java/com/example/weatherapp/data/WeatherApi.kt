@@ -10,7 +10,7 @@ interface WeatherApi {
     @GET("data/2.5/forecast")
     suspend fun getWeatherFiveDays(
         @Query("q") city: String,
-        @Query("appid") apiKey: String = "bfab1c44835b504a040ac8244a013e72"
+        @Query("appid") apiKey: String = RetrofitData.X_API_KEY
     ): Response<AllWeatherResponseDTO>
 }
 

@@ -1,7 +1,7 @@
 package com.example.weatherapp.data
 
 import com.example.weatherapp.data.models.map
-import com.example.weatherapp.domain.WeatherInfo
+import com.example.weatherapp.domain.entity.WeatherThreeHours
 import com.example.weatherapp.domain.WeatherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getWeatherFiveDays(
         city: String,
-        onSuccess: (List<WeatherInfo>) -> Unit,
+        onSuccess: (List<WeatherThreeHours>) -> Unit,
         onError: () -> Unit,
         onServerError: () -> Unit
     ) {

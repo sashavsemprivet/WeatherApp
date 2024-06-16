@@ -1,5 +1,6 @@
 package com.example.weatherapp.domain
 
+import com.example.weatherapp.domain.entity.WeatherThreeHours
 import javax.inject.Inject
 
 class GetWeatherFiveDaysByCityUseCase @Inject constructor(
@@ -8,7 +9,7 @@ class GetWeatherFiveDaysByCityUseCase @Inject constructor(
 
     suspend fun execute(
         city: String = "Oryol",
-        onSuccess: (List<WeatherInfo>) -> Unit,
+        onSuccess: (List<WeatherThreeHours>) -> Unit,
         onError: () -> Unit,
         onServerError: () -> Unit
     ) {

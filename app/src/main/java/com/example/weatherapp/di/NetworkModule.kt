@@ -1,5 +1,6 @@
 package com.example.weatherapp.di
 
+import com.example.weatherapp.data.RetrofitData
 import com.example.weatherapp.data.WeatherApi
 import com.example.weatherapp.data.WeatherRepositoryImpl
 import com.example.weatherapp.domain.WeatherRepository
@@ -24,7 +25,7 @@ interface NetworkModule {
 
         @Provides
         fun provideRetrofit(): Retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
+            .baseUrl(RetrofitData.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
